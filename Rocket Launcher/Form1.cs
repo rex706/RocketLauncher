@@ -54,7 +54,7 @@ namespace Rocket_Launcher
                 else
                 {
                     MessageBox.Show("You must select a valid game exe!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    Close();
                 }
 
                 //create settings file
