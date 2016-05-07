@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@
             this.SplitLabel = new System.Windows.Forms.Label();
             this.ResolutionLabel = new System.Windows.Forms.Label();
             this.VersionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.SplitToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -91,6 +93,7 @@
             this.HorizontalCheckBox.Size = new System.Drawing.Size(73, 17);
             this.HorizontalCheckBox.TabIndex = 5;
             this.HorizontalCheckBox.Text = "Horizontal";
+            this.SplitToolTip.SetToolTip(this.HorizontalCheckBox, "Horizontal split screen for vertical monitor set ups.");
             this.HorizontalCheckBox.UseVisualStyleBackColor = true;
             this.HorizontalCheckBox.CheckedChanged += new System.EventHandler(this.HorizontalCheckBox_CheckedChanged);
             // 
@@ -102,6 +105,7 @@
             this.VerticalCheckBox.Size = new System.Drawing.Size(61, 17);
             this.VerticalCheckBox.TabIndex = 6;
             this.VerticalCheckBox.Text = "Vertical";
+            this.SplitToolTip.SetToolTip(this.VerticalCheckBox, "Vertical split screen for horizontal monitor set ups.");
             this.VerticalCheckBox.UseVisualStyleBackColor = true;
             this.VerticalCheckBox.CheckedChanged += new System.EventHandler(this.VerticalCheckBox_CheckedChanged);
             // 
@@ -175,6 +179,7 @@
         private System.Windows.Forms.Label SplitLabel;
         private System.Windows.Forms.Label ResolutionLabel;
         private System.Windows.Forms.LinkLabel VersionLinkLabel;
+        private System.Windows.Forms.ToolTip SplitToolTip;
     }
 }
 
