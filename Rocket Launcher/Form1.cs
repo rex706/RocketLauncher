@@ -110,7 +110,7 @@ namespace Rocket_Launcher
             if (VerticalCheckBox.Checked == true)
             {
                 HorizontalCheckBox.Checked = false;
-                YtextBox.Text = screenWidth;
+                YtextBox.Text = screenHeight;
 
                 int doubleWidth = Int32.Parse(screenWidth) * 2;
                 XtextBox.Text = doubleWidth.ToString();
@@ -118,7 +118,7 @@ namespace Rocket_Launcher
 
             if (VerticalCheckBox.Checked == false)
             {
-                XtextBox.Text = screenHeight;
+                XtextBox.Text = screenWidth;
             }
         }
 
@@ -127,7 +127,7 @@ namespace Rocket_Launcher
             if (HorizontalCheckBox.Checked == true)
             {
                 VerticalCheckBox.Checked = false;
-                XtextBox.Text = screenHeight;
+                XtextBox.Text = screenWidth;
 
                 int doubleHeight = Int32.Parse(screenHeight) * 2;
                 YtextBox.Text = doubleHeight.ToString();
@@ -135,7 +135,7 @@ namespace Rocket_Launcher
 
             if (HorizontalCheckBox.Checked == false)
             {
-                YtextBox.Text = screenWidth;
+                YtextBox.Text = screenHeight;
             }
         }
 
