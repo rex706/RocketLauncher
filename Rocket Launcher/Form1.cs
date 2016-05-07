@@ -9,7 +9,7 @@ namespace Rocket_Launcher
     {
         private bool argFlag = false;
         private bool horizontal = false;
-        private bool vertical = true;
+        private bool vertical = false;
 
         private string screenWidth;
         private string screenHeight;
