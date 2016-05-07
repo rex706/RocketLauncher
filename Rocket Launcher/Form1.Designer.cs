@@ -41,12 +41,13 @@
             this.ResolutionLabel = new System.Windows.Forms.Label();
             this.VersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.SplitToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.BorderlessCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(88, 120);
+            this.label1.Location = new System.Drawing.Point(88, 140);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 0;
@@ -55,7 +56,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(88, 148);
+            this.label2.Location = new System.Drawing.Point(88, 168);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 1;
@@ -63,21 +64,21 @@
             // 
             // XtextBox
             // 
-            this.XtextBox.Location = new System.Drawing.Point(108, 117);
+            this.XtextBox.Location = new System.Drawing.Point(108, 136);
             this.XtextBox.Name = "XtextBox";
             this.XtextBox.Size = new System.Drawing.Size(61, 20);
             this.XtextBox.TabIndex = 2;
             // 
             // YtextBox
             // 
-            this.YtextBox.Location = new System.Drawing.Point(108, 145);
+            this.YtextBox.Location = new System.Drawing.Point(108, 164);
             this.YtextBox.Name = "YtextBox";
             this.YtextBox.Size = new System.Drawing.Size(61, 20);
             this.YtextBox.TabIndex = 3;
             // 
             // LaunchButton
             // 
-            this.LaunchButton.Location = new System.Drawing.Point(27, 185);
+            this.LaunchButton.Location = new System.Drawing.Point(27, 200);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(204, 44);
             this.LaunchButton.TabIndex = 4;
@@ -121,7 +122,7 @@
             // ResolutionLabel
             // 
             this.ResolutionLabel.AutoSize = true;
-            this.ResolutionLabel.Location = new System.Drawing.Point(91, 90);
+            this.ResolutionLabel.Location = new System.Drawing.Point(92, 88);
             this.ResolutionLabel.Name = "ResolutionLabel";
             this.ResolutionLabel.Size = new System.Drawing.Size(75, 13);
             this.ResolutionLabel.TabIndex = 8;
@@ -137,14 +138,29 @@
             this.VersionLinkLabel.Size = new System.Drawing.Size(28, 13);
             this.VersionLinkLabel.TabIndex = 9;
             this.VersionLinkLabel.TabStop = true;
-            this.VersionLinkLabel.Text = "v1.1";
+            this.VersionLinkLabel.Text = "v1.2";
             this.VersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VersionLinkLabel_LinkClicked);
+            // 
+            // BorderlessCheckBox
+            // 
+            this.BorderlessCheckBox.AutoSize = true;
+            this.BorderlessCheckBox.Checked = true;
+            this.BorderlessCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.BorderlessCheckBox.Location = new System.Drawing.Point(94, 111);
+            this.BorderlessCheckBox.Name = "BorderlessCheckBox";
+            this.BorderlessCheckBox.Size = new System.Drawing.Size(75, 17);
+            this.BorderlessCheckBox.TabIndex = 10;
+            this.BorderlessCheckBox.Text = "Borderless";
+            this.SplitToolTip.SetToolTip(this.BorderlessCheckBox, "Enable/Disable borderless windowed mode.");
+            this.BorderlessCheckBox.UseVisualStyleBackColor = true;
+            this.BorderlessCheckBox.CheckedChanged += new System.EventHandler(this.BorderlessCheckBox_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(257, 240);
+            this.ClientSize = new System.Drawing.Size(257, 257);
+            this.Controls.Add(this.BorderlessCheckBox);
             this.Controls.Add(this.VersionLinkLabel);
             this.Controls.Add(this.ResolutionLabel);
             this.Controls.Add(this.SplitLabel);
@@ -180,6 +196,7 @@
         private System.Windows.Forms.Label ResolutionLabel;
         private System.Windows.Forms.LinkLabel VersionLinkLabel;
         private System.Windows.Forms.ToolTip SplitToolTip;
+        private System.Windows.Forms.CheckBox BorderlessCheckBox;
     }
 }
 

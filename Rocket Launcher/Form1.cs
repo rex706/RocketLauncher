@@ -10,6 +10,7 @@ namespace Rocket_Launcher
         private bool argFlag = false;
         private bool horizontal = false;
         private bool vertical = false;
+        private bool borderless = true;
 
         private string screenWidth;
         private string screenHeight;
@@ -26,10 +27,16 @@ namespace Rocket_Launcher
         {
             if (args.Length > 0)
             {
-                if (args[0].Substring(1) == "horizontal") horizontal = true;
-                else if (args[0].Substring(1) == "vertical") vertical = true;
-
-                argFlag = true;
+                if (args[0].Substring(1) == "horizontal")
+                {
+                    horizontal = true;
+                    argFlag = true;
+                }
+                else if (args[0].Substring(1) == "vertical")
+                {
+                    vertical = true;
+                    argFlag = true;
+                }
             }
 
             InitializeComponent();
@@ -39,7 +46,7 @@ namespace Rocket_Launcher
         {
             if (!File.Exists("RocketSettings.txt"))
             {
-                MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warninga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 string defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\rocketleague\\Binaries\\Win32";
 
@@ -142,7 +149,10 @@ namespace Rocket_Launcher
         private void LaunchButton_Click(object sender, EventArgs e)
         {
             var settingsINI = new IniFile(settingsPath);
-            //settingsINI.Write("Borderless", "True", "SystemSettings");
+
+            if (borderless == true) settingsINI.Write("Borderless", "True", "SystemSettings");
+            else settingsINI.Write("Borderless", "False", "SystemSettings");
+
             settingsINI.Write("ResX", XtextBox.Text, "SystemSettings");
             settingsINI.Write("ResY", YtextBox.Text, "SystemSettings");
 
@@ -168,7 +178,7 @@ namespace Rocket_Launcher
             }
             catch (Exception m)
             {
-                MessageBox.Show(m.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(m.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -177,6 +187,18 @@ namespace Rocket_Launcher
         private void VersionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("https://github.com/rex706/RocketLauncher");
+        }
+
+        private void BorderlessCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BorderlessCheckBox.Checked == true)
+            {
+                borderless = true;
+            }
+            else if (BorderlessCheckBox.Checked == false)
+            {
+                borderless = false;
+            }
         }
     }
 }
