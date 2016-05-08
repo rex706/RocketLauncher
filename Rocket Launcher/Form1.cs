@@ -17,6 +17,8 @@ namespace Rocket_Launcher
         private string userPath;
         private string settingsPath;
         private string exePath;
+        private string preset;
+        private string borderlessString;
 
         public Form1()
         {
@@ -49,13 +51,15 @@ namespace Rocket_Launcher
                 MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 string defaultPath = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\rocketleague\\Binaries\\Win32";
+                string secondaryPath = "D:\\Program Files (x86)\\Steam\\steamapps\\common\\rocketleague\\Binaries\\Win32";
 
                 OpenFileDialog exeDialog = new OpenFileDialog();
                 exeDialog.Filter = "RocketLeague.exe (*.exe)|*.exe";
                 exeDialog.FilterIndex = 1;
                 exeDialog.Multiselect = false;
 
-                if(Directory.Exists(defaultPath)) exeDialog.InitialDirectory = defaultPath;
+                if (Directory.Exists(defaultPath)) exeDialog.InitialDirectory = defaultPath;
+                else if (Directory.Exists(secondaryPath)) exeDialog.InitialDirectory = secondaryPath;
 
                 if (exeDialog.ShowDialog() == DialogResult.OK) exePath = exeDialog.FileName;
                 else
@@ -68,6 +72,7 @@ namespace Rocket_Launcher
                 using (StreamWriter sw = File.CreateText(Directory.GetCurrentDirectory() + "\\RocketSettings.txt"))
                 {
                     sw.WriteLine(exePath);
+                    sw.WriteLine("\n");
                 }
             }
             else
@@ -77,11 +82,19 @@ namespace Rocket_Launcher
                     using (StreamReader sr = new StreamReader("RocketSettings.txt"))
                     {
                         exePath = sr.ReadLine();
+                        preset = sr.ReadLine();
+                        borderlessString = sr.ReadLine();
+
+                        if (borderlessString == "0")
+                        {
+                            borderless = false;
+                            BorderlessCheckBox.Checked = false;
+                        }
                     }
                 }
                 catch (Exception m)
                 {
-                    MessageBox.Show(m.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(m.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -100,6 +113,9 @@ namespace Rocket_Launcher
 
             XtextBox.Text = screenWidth;
             YtextBox.Text = screenHeight;
+
+            if (preset == "h") HorizontalCheckBox.Checked = true;
+            else if (preset == "v") VerticalCheckBox.Checked = true;
 
             if (argFlag == true)
             {
@@ -155,6 +171,14 @@ namespace Rocket_Launcher
 
             settingsINI.Write("ResX", XtextBox.Text, "SystemSettings");
             settingsINI.Write("ResY", YtextBox.Text, "SystemSettings");
+
+            string[] arrLine = File.ReadAllLines("RocketSettings.txt");
+            if (HorizontalCheckBox.Checked == true) arrLine[1] = "h";
+            else if (VerticalCheckBox.Checked == true) arrLine[1] = "v";
+            else arrLine[1] = "";
+            if (BorderlessCheckBox.Checked == true) arrLine[2] = "1";
+            else arrLine[2] = "0";
+            File.WriteAllLines("RocketSettings.txt", arrLine);
 
             //get working directory from exePath variable
             int last_slash_idx = exePath.LastIndexOf('\\');

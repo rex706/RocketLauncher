@@ -1,10 +1,10 @@
 # RocketLauncher
 Easily change Rocket League's resolution to work with dual-monitor split screen.
 
-Latest version: 1.2
-- added borderless window option
+Latest version: 1.2.1
+- now remembers last checkbox selection
 
-![alt tag](http://i.imgur.com/QKyNZEF.png) 
+![alt tag](http://i.imgur.com/zQN9bhy.png) 
 
 [Download](https://drive.google.com/file/d/0BzKq8PEZkdhSOGFGcTZ0SWlmSTA/view?usp=sharing)
 
