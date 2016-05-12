@@ -20,6 +20,8 @@ namespace Rocket_Launcher
         private string preset;
         private string borderlessString;
 
+        private Screen[] screens;
+
         public Form1()
         {
             InitializeComponent();
@@ -111,19 +113,7 @@ namespace Rocket_Launcher
             screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
             screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
 
-            Screen[] screens = Screen.AllScreens;
-
-            for (int i = 0; i < screens.Length; i++)
-            {
-                int tempH = screens[i].Bounds.Height;
-                int tempW = screens[i].Bounds.Width;
-
-                if (tempH < Int32.Parse(screenHeight) && tempW < Int32.Parse(screenWidth))
-                {
-                    screenHeight = tempH.ToString();
-                    screenWidth = tempW.ToString();
-                }
-            }
+            screens = Screen.AllScreens;
 
             XtextBox.Text = screenWidth;
             YtextBox.Text = screenHeight;
@@ -147,10 +137,22 @@ namespace Rocket_Launcher
             if (VerticalCheckBox.Checked == true)
             {
                 HorizontalCheckBox.Checked = false;
-                YtextBox.Text = screenHeight;
+
+                for (int i = 0; i < screens.Length; i++)
+                {
+                    int tempH = screens[i].Bounds.Height;
+                    int tempW = screens[i].Bounds.Width;
+
+                    if (tempH < Int32.Parse(screenHeight) && tempW < Int32.Parse(screenWidth))
+                    {
+                        screenHeight = tempH.ToString();
+                        screenWidth = tempW.ToString();
+                    }
+                }
 
                 int doubleWidth = Int32.Parse(screenWidth) * 2;
                 XtextBox.Text = doubleWidth.ToString();
+                YtextBox.Text = screenHeight;
             }
 
             if (VerticalCheckBox.Checked == false)
@@ -164,9 +166,21 @@ namespace Rocket_Launcher
             if (HorizontalCheckBox.Checked == true)
             {
                 VerticalCheckBox.Checked = false;
-                XtextBox.Text = screenWidth;
+
+                for (int i = 0; i < screens.Length; i++)
+                {
+                    int tempH = screens[i].Bounds.Height;
+                    int tempW = screens[i].Bounds.Width;
+
+                    if (tempH < Int32.Parse(screenHeight) && tempW < Int32.Parse(screenWidth))
+                    {
+                        screenHeight = tempH.ToString();
+                        screenWidth = tempW.ToString();
+                    }
+                }
 
                 int doubleHeight = Int32.Parse(screenHeight) * 2;
+                XtextBox.Text = screenWidth;
                 YtextBox.Text = doubleHeight.ToString();
             }
 

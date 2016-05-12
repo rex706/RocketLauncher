@@ -135,10 +135,10 @@
             this.VersionLinkLabel.LinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.Location = new System.Drawing.Point(13, 13);
             this.VersionLinkLabel.Name = "VersionLinkLabel";
-            this.VersionLinkLabel.Size = new System.Drawing.Size(28, 13);
+            this.VersionLinkLabel.Size = new System.Drawing.Size(37, 13);
             this.VersionLinkLabel.TabIndex = 9;
             this.VersionLinkLabel.TabStop = true;
-            this.VersionLinkLabel.Text = "v1.3";
+            this.VersionLinkLabel.Text = "v1.3.1";
             this.SplitToolTip.SetToolTip(this.VersionLinkLabel, "GitHub");
             this.VersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VersionLinkLabel_LinkClicked);
