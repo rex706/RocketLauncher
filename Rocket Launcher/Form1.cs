@@ -111,6 +111,20 @@ namespace Rocket_Launcher
             screenWidth = Screen.PrimaryScreen.Bounds.Width.ToString();
             screenHeight = Screen.PrimaryScreen.Bounds.Height.ToString();
 
+            Screen[] screens = Screen.AllScreens;
+
+            for (int i = 0; i < screens.Length; i++)
+            {
+                int tempH = screens[i].Bounds.Height;
+                int tempW = screens[i].Bounds.Width;
+
+                if (tempH < Int32.Parse(screenHeight) && tempW < Int32.Parse(screenWidth))
+                {
+                    screenHeight = tempH.ToString();
+                    screenWidth = tempW.ToString();
+                }
+            }
+
             XtextBox.Text = screenWidth;
             YtextBox.Text = screenHeight;
 

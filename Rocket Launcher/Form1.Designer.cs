@@ -94,7 +94,7 @@
             this.HorizontalCheckBox.Size = new System.Drawing.Size(73, 17);
             this.HorizontalCheckBox.TabIndex = 5;
             this.HorizontalCheckBox.Text = "Horizontal";
-            this.SplitToolTip.SetToolTip(this.HorizontalCheckBox, "Horizontal split screen for vertical monitor set ups.");
+            this.SplitToolTip.SetToolTip(this.HorizontalCheckBox, "--  horizontally split screen for vertical monitor set ups.");
             this.HorizontalCheckBox.UseVisualStyleBackColor = true;
             this.HorizontalCheckBox.CheckedChanged += new System.EventHandler(this.HorizontalCheckBox_CheckedChanged);
             // 
@@ -106,7 +106,7 @@
             this.VerticalCheckBox.Size = new System.Drawing.Size(61, 17);
             this.VerticalCheckBox.TabIndex = 6;
             this.VerticalCheckBox.Text = "Vertical";
-            this.SplitToolTip.SetToolTip(this.VerticalCheckBox, "Vertical split screen for horizontal monitor set ups.");
+            this.SplitToolTip.SetToolTip(this.VerticalCheckBox, "|  vertically split screen for horizontal monitor set ups.");
             this.VerticalCheckBox.UseVisualStyleBackColor = true;
             this.VerticalCheckBox.CheckedChanged += new System.EventHandler(this.VerticalCheckBox_CheckedChanged);
             // 
@@ -135,10 +135,11 @@
             this.VersionLinkLabel.LinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.Location = new System.Drawing.Point(13, 13);
             this.VersionLinkLabel.Name = "VersionLinkLabel";
-            this.VersionLinkLabel.Size = new System.Drawing.Size(37, 13);
+            this.VersionLinkLabel.Size = new System.Drawing.Size(28, 13);
             this.VersionLinkLabel.TabIndex = 9;
             this.VersionLinkLabel.TabStop = true;
-            this.VersionLinkLabel.Text = "v1.2.1";
+            this.VersionLinkLabel.Text = "v1.3";
+            this.SplitToolTip.SetToolTip(this.VersionLinkLabel, "GitHub");
             this.VersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VersionLinkLabel_LinkClicked);
             // 
