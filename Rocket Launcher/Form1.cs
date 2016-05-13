@@ -103,7 +103,7 @@ namespace Rocket_Launcher
                 {
                     sw.WriteLine(exePath);
                     sw.WriteLine("\n");
-                }
+                }      
             }
             else
             {
@@ -158,6 +158,7 @@ namespace Rocket_Launcher
                 Close();
             }
 
+            Activate();
         }
 
         private void VerticalCheckBox_CheckedChanged(object sender, EventArgs e)
