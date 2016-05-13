@@ -76,7 +76,7 @@ namespace Rocket_Launcher
                 //MessageBox.Show(m.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
-            if (!File.Exists("RocketSettings.txt"))
+            if (!File.Exists("RocketSettings.ini"))
             {
                 MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -99,27 +99,27 @@ namespace Rocket_Launcher
                 }
 
                 //create settings file
-                using (StreamWriter sw = File.CreateText(Directory.GetCurrentDirectory() + "\\RocketSettings.txt"))
-                {
-                    sw.WriteLine(exePath);
-                    sw.WriteLine("\n");
-                }      
+                var RocketSettings = new IniFile("RocketSettings.ini");
+
+                RocketSettings.Write("Path", exePath, "Settings");
+                RocketSettings.Write("Split", "", "Settings");
+                RocketSettings.Write("Borderless", "True", "Settings");
             }
             else
             {
                 try
-                {   //open the text file using a stream reader
-                    using (StreamReader sr = new StreamReader("RocketSettings.txt"))
-                    {
-                        exePath = sr.ReadLine();
-                        preset = sr.ReadLine();
-                        borderlessString = sr.ReadLine();
+                {  
+                    //open the text file using a stream reader
+                    var RocketSettings = new IniFile("RocketSettings.ini");
 
-                        if (borderlessString == "0")
-                        {
-                            borderless = false;
-                            BorderlessCheckBox.Checked = false;
-                        }
+                    exePath = RocketSettings.Read("Path", "Settings");
+                    preset = RocketSettings.Read("Split", "Settings");
+                    borderlessString = RocketSettings.Read("Borderless", "Settings");
+
+                    if (borderlessString == "False")
+                    {
+                        borderless = false;
+                        BorderlessCheckBox.Checked = false;
                     }
                 }
                 catch (Exception m)
@@ -158,6 +158,7 @@ namespace Rocket_Launcher
                 Close();
             }
 
+            //bring window to front / give active focus (BrintToFront() and Focus() would not work for some reason)
             Activate();
         }
 
@@ -222,6 +223,7 @@ namespace Rocket_Launcher
         private void LaunchButton_Click(object sender, EventArgs e)
         {
             var settingsINI = new IniFile(settingsPath);
+            var RocketSettings = new IniFile("RocketSettings.ini");
 
             if (borderless == true) settingsINI.Write("Borderless", "True", "SystemSettings");
             else settingsINI.Write("Borderless", "False", "SystemSettings");
@@ -229,13 +231,11 @@ namespace Rocket_Launcher
             settingsINI.Write("ResX", XtextBox.Text, "SystemSettings");
             settingsINI.Write("ResY", YtextBox.Text, "SystemSettings");
 
-            string[] arrLine = File.ReadAllLines("RocketSettings.txt");
-            if (HorizontalCheckBox.Checked == true) arrLine[1] = "h";
-            else if (VerticalCheckBox.Checked == true) arrLine[1] = "v";
-            else arrLine[1] = "";
-            if (BorderlessCheckBox.Checked == true) arrLine[2] = "1";
-            else arrLine[2] = "0";
-            File.WriteAllLines("RocketSettings.txt", arrLine);
+            if (HorizontalCheckBox.Checked == true) RocketSettings.Write("Split", "h", "Settings");
+            else if (VerticalCheckBox.Checked == true) RocketSettings.Write("Split", "v", "Settings");
+            else RocketSettings.Write("Split", "", "Settings");
+            if (BorderlessCheckBox.Checked == true) RocketSettings.Write("Borderless", "True", "Settings");
+            else RocketSettings.Write("Borderless", "False", "Settings");
 
             //get working directory from exePath variable
             int last_slash_idx = exePath.LastIndexOf('\\');

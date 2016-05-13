@@ -1,11 +1,14 @@
 # RocketLauncher
 Easily change Rocket League's resolution to work with dual-monitor split screen.
 
-![alt tag](http://i.imgur.com/RpNYGZ3.png)
+![alt tag](http://i.imgur.com/lSJq8zI.png)
 
 [Download](https://drive.google.com/file/d/0BzKq8PEZkdhSOGFGcTZ0SWlmSTA/view?usp=sharing)
 
-Latest version: 1.3.3
+Latest version: 1.4
+- switch to ini file format for RocketSettings file instead of txt
+
+1.3.3
 - no internet crash fix
 
 1.3.2
