@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Rocket_Launcher
@@ -48,6 +49,24 @@ namespace Rocket_Launcher
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //check for version updates
+            WebClient client = new WebClient();
+            Stream stream = client.OpenRead("http://textuploader.com/5bk2v/raw");
+            StreamReader reader = new StreamReader(stream);
+            String latest = reader.ReadToEnd();
+
+            //MessageBox.Show(latest);
+            if (latest != VersionLinkLabel.Text.Substring(1))
+            {
+                DialogResult answer = MessageBox.Show("There is a new update available!\nDownload now?", "Update Found!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (answer == DialogResult.Yes)
+                {
+                    Process.Start("https://github.com/rex706/RocketLauncher");
+                    Close();
+                }
+            }
+            
+           
             if (!File.Exists("RocketSettings.txt"))
             {
                 MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
