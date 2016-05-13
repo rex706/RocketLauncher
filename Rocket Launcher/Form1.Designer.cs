@@ -138,7 +138,7 @@
             this.VersionLinkLabel.Size = new System.Drawing.Size(37, 13);
             this.VersionLinkLabel.TabIndex = 9;
             this.VersionLinkLabel.TabStop = true;
-            this.VersionLinkLabel.Text = "v1.3.2";
+            this.VersionLinkLabel.Text = "v1.3.3";
             this.SplitToolTip.SetToolTip(this.VersionLinkLabel, "GitHub");
             this.VersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VersionLinkLabel_LinkClicked);

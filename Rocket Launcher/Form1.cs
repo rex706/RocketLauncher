@@ -51,21 +51,30 @@ namespace Rocket_Launcher
         {
             //check for version updates
             WebClient client = new WebClient();
-            Stream stream = client.OpenRead("http://textuploader.com/5bk2v/raw");
-            StreamReader reader = new StreamReader(stream);
-            String latest = reader.ReadToEnd();
 
-            //MessageBox.Show(latest);
-            if (latest != VersionLinkLabel.Text.Substring(1))
-            {
-                DialogResult answer = MessageBox.Show("There is a new update available!\nDownload now?", "Update Found!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (answer == DialogResult.Yes)
+            try
+            {   //open the text file using a stream reader
+                using (Stream stream = client.OpenRead("http://textuploader.com/5bk2v/raw"))
                 {
-                    Process.Start("https://github.com/rex706/RocketLauncher");
-                    Close();
+                    StreamReader reader = new StreamReader(stream);
+                    String latest = reader.ReadToEnd();
+
+                    //MessageBox.Show(latest);
+                    if (latest != VersionLinkLabel.Text.Substring(1))
+                    {
+                        DialogResult answer = MessageBox.Show("There is a new update available!\nDownload now?", "Update Found!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (answer == DialogResult.Yes)
+                        {
+                            Process.Start("https://github.com/rex706/RocketLauncher");
+                            Close();
+                        }
+                    }
                 }
             }
-            
+            catch (Exception m)
+            {
+                //MessageBox.Show(m.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
            
             if (!File.Exists("RocketSettings.txt"))
             {
