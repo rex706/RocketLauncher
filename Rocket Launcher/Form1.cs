@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace Rocket_Launcher
         private string userPath;
         private string settingsPath;
         private string exePath;
-        private string preset;
+        private string split;
         private string borderlessString;
 
         private Screen[] screens;
@@ -68,6 +69,11 @@ namespace Rocket_Launcher
                             Process.Start("https://github.com/rex706/RocketLauncher");
                             Close();
                         }
+                        else if(answer == DialogResult.No)
+                        {
+                            VersionLinkLabel.LinkColor = Color.Red;
+                            VersionLinkLabel.Text = "v" + latest + "\nupdate\navailable!";
+                        }
                     }
                 }
             }
@@ -113,7 +119,7 @@ namespace Rocket_Launcher
                     var RocketSettings = new IniFile("RocketSettings.ini");
 
                     exePath = RocketSettings.Read("Path", "Settings");
-                    preset = RocketSettings.Read("Split", "Settings");
+                    split = RocketSettings.Read("Split", "Settings");
                     borderlessString = RocketSettings.Read("Borderless", "Settings");
 
                     if (borderlessString == "False")
@@ -146,8 +152,8 @@ namespace Rocket_Launcher
             XtextBox.Text = screenWidth;
             YtextBox.Text = screenHeight;
 
-            if (preset == "h") HorizontalCheckBox.Checked = true;
-            else if (preset == "v") VerticalCheckBox.Checked = true;
+            if (split == "h") HorizontalCheckBox.Checked = true;
+            else if (split == "v") VerticalCheckBox.Checked = true;
 
             if (argFlag == true)
             {
