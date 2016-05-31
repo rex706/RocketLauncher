@@ -12,7 +12,6 @@ namespace Rocket_Launcher
         private bool argFlag = false;
         private bool horizontal = false;
         private bool vertical = false;
-        private bool borderless = true;
 
         private string screenWidth;
         private string screenHeight;
@@ -20,7 +19,7 @@ namespace Rocket_Launcher
         private string settingsPath;
         private string exePath;
         private string split;
-        private string borderlessString;
+        private string WindowString;
 
         private Screen[] screens;
 
@@ -109,7 +108,7 @@ namespace Rocket_Launcher
 
                 RocketSettings.Write("Path", exePath, "Settings");
                 RocketSettings.Write("Split", "", "Settings");
-                RocketSettings.Write("Borderless", "True", "Settings");
+                RocketSettings.Write("Window", "", "Settings");
             }
             else
             {
@@ -120,12 +119,19 @@ namespace Rocket_Launcher
 
                     exePath = RocketSettings.Read("Path", "Settings");
                     split = RocketSettings.Read("Split", "Settings");
-                    borderlessString = RocketSettings.Read("Borderless", "Settings");
+                    WindowString = RocketSettings.Read("Window", "Settings");
 
-                    if (borderlessString == "False")
+                    if (WindowString == "Borderless")
                     {
-                        borderless = false;
-                        BorderlessCheckBox.Checked = false;
+                        BorderlessCheckBox.Checked = true;
+                    }
+                    else if(WindowString == "Fullscreen")
+                    {
+                        FullscreenCheckBox.Checked = true;
+                    }
+                    else if(WindowString == "Windowed")
+                    {
+                        WindowedCheckBox.Checked = true;
                     }
                 }
                 catch (Exception m)
@@ -152,8 +158,8 @@ namespace Rocket_Launcher
             XtextBox.Text = screenWidth;
             YtextBox.Text = screenHeight;
 
-            if (split == "h") HorizontalCheckBox.Checked = true;
-            else if (split == "v") VerticalCheckBox.Checked = true;
+            if (split == "Horizontal") HorizontalCheckBox.Checked = true;
+            else if (split == "Vertical") VerticalCheckBox.Checked = true;
 
             if (argFlag == true)
             {
@@ -231,17 +237,26 @@ namespace Rocket_Launcher
             var settingsINI = new IniFile(settingsPath);
             var RocketSettings = new IniFile("RocketSettings.ini");
 
-            if (borderless == true) settingsINI.Write("Borderless", "True", "SystemSettings");
+            if (BorderlessCheckBox.Checked == true) settingsINI.Write("Borderless", "True", "SystemSettings");
             else settingsINI.Write("Borderless", "False", "SystemSettings");
+            if (FullscreenCheckBox.Checked == true) settingsINI.Write("Fullscreen", "True", "SystemSettings");
+            else settingsINI.Write("Fullscreen", "False", "SystemSettings");
+            if (WindowedCheckBox.Checked == true)
+            {
+                //might not need this if statement
+                settingsINI.Write("Fullscreen", "False", "SystemSettings");
+                settingsINI.Write("Borderless", "False", "SystemSettings");
+            }
 
             settingsINI.Write("ResX", XtextBox.Text, "SystemSettings");
             settingsINI.Write("ResY", YtextBox.Text, "SystemSettings");
 
-            if (HorizontalCheckBox.Checked == true) RocketSettings.Write("Split", "h", "Settings");
-            else if (VerticalCheckBox.Checked == true) RocketSettings.Write("Split", "v", "Settings");
+            if (HorizontalCheckBox.Checked == true) RocketSettings.Write("Split", "Horizontal", "Settings");
+            else if (VerticalCheckBox.Checked == true) RocketSettings.Write("Split", "Vertical", "Settings");
             else RocketSettings.Write("Split", "", "Settings");
-            if (BorderlessCheckBox.Checked == true) RocketSettings.Write("Borderless", "True", "Settings");
-            else RocketSettings.Write("Borderless", "False", "Settings");
+            if (BorderlessCheckBox.Checked == true) RocketSettings.Write("Window", "Borderless", "Settings");
+            else if (FullscreenCheckBox.Checked == true) RocketSettings.Write("Window", "Fullscreen", "Settings");
+            else if (WindowedCheckBox.Checked == true) RocketSettings.Write("Window", "Windowed", "Settings");
 
             //get working directory from exePath variable
             int last_slash_idx = exePath.LastIndexOf('\\');
@@ -276,15 +291,31 @@ namespace Rocket_Launcher
             Process.Start("https://github.com/rex706/RocketLauncher");
         }
 
+        //window checkboxes
         private void BorderlessCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (BorderlessCheckBox.Checked == true)
             {
-                borderless = true;
+                FullscreenCheckBox.Checked = false;
+                WindowedCheckBox.Checked = false;
             }
-            else if (BorderlessCheckBox.Checked == false)
+        }
+
+        private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WindowedCheckBox.Checked == true)
             {
-                borderless = false;
+                BorderlessCheckBox.Checked = false;
+                FullscreenCheckBox.Checked = false;
+            }
+        }
+
+        private void FullscreenCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (FullscreenCheckBox.Checked == true)
+            {
+                BorderlessCheckBox.Checked = false;
+                WindowedCheckBox.Checked = false;
             }
         }
     }

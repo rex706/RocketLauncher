@@ -42,12 +42,14 @@
             this.VersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.SplitToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.BorderlessCheckBox = new System.Windows.Forms.CheckBox();
+            this.WindowedCheckBox = new System.Windows.Forms.CheckBox();
+            this.FullscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(88, 140);
+            this.label1.Location = new System.Drawing.Point(88, 191);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(14, 13);
             this.label1.TabIndex = 0;
@@ -56,7 +58,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(88, 168);
+            this.label2.Location = new System.Drawing.Point(88, 219);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(14, 13);
             this.label2.TabIndex = 1;
@@ -64,21 +66,21 @@
             // 
             // XtextBox
             // 
-            this.XtextBox.Location = new System.Drawing.Point(108, 136);
+            this.XtextBox.Location = new System.Drawing.Point(108, 187);
             this.XtextBox.Name = "XtextBox";
             this.XtextBox.Size = new System.Drawing.Size(61, 20);
             this.XtextBox.TabIndex = 2;
             // 
             // YtextBox
             // 
-            this.YtextBox.Location = new System.Drawing.Point(108, 164);
+            this.YtextBox.Location = new System.Drawing.Point(108, 215);
             this.YtextBox.Name = "YtextBox";
             this.YtextBox.Size = new System.Drawing.Size(61, 20);
             this.YtextBox.TabIndex = 3;
             // 
             // LaunchButton
             // 
-            this.LaunchButton.Location = new System.Drawing.Point(27, 200);
+            this.LaunchButton.Location = new System.Drawing.Point(27, 251);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(204, 44);
             this.LaunchButton.TabIndex = 4;
@@ -138,7 +140,7 @@
             this.VersionLinkLabel.Size = new System.Drawing.Size(28, 13);
             this.VersionLinkLabel.TabIndex = 9;
             this.VersionLinkLabel.TabStop = true;
-            this.VersionLinkLabel.Text = "v1.4";
+            this.VersionLinkLabel.Text = "v1.5";
             this.SplitToolTip.SetToolTip(this.VersionLinkLabel, "GitHub");
             this.VersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.VersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.VersionLinkLabel_LinkClicked);
@@ -146,9 +148,7 @@
             // BorderlessCheckBox
             // 
             this.BorderlessCheckBox.AutoSize = true;
-            this.BorderlessCheckBox.Checked = true;
-            this.BorderlessCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.BorderlessCheckBox.Location = new System.Drawing.Point(94, 111);
+            this.BorderlessCheckBox.Location = new System.Drawing.Point(94, 160);
             this.BorderlessCheckBox.Name = "BorderlessCheckBox";
             this.BorderlessCheckBox.Size = new System.Drawing.Size(75, 17);
             this.BorderlessCheckBox.TabIndex = 10;
@@ -157,10 +157,34 @@
             this.BorderlessCheckBox.UseVisualStyleBackColor = true;
             this.BorderlessCheckBox.CheckedChanged += new System.EventHandler(this.BorderlessCheckBox_CheckedChanged);
             // 
+            // WindowedCheckBox
+            // 
+            this.WindowedCheckBox.AutoSize = true;
+            this.WindowedCheckBox.Location = new System.Drawing.Point(94, 137);
+            this.WindowedCheckBox.Name = "WindowedCheckBox";
+            this.WindowedCheckBox.Size = new System.Drawing.Size(77, 17);
+            this.WindowedCheckBox.TabIndex = 11;
+            this.WindowedCheckBox.Text = "Windowed";
+            this.WindowedCheckBox.UseVisualStyleBackColor = true;
+            this.WindowedCheckBox.CheckedChanged += new System.EventHandler(this.WindowedCheckBox_CheckedChanged);
+            // 
+            // FullscreenCheckBox
+            // 
+            this.FullscreenCheckBox.AutoSize = true;
+            this.FullscreenCheckBox.Location = new System.Drawing.Point(94, 112);
+            this.FullscreenCheckBox.Name = "FullscreenCheckBox";
+            this.FullscreenCheckBox.Size = new System.Drawing.Size(74, 17);
+            this.FullscreenCheckBox.TabIndex = 12;
+            this.FullscreenCheckBox.Text = "Fullscreen";
+            this.FullscreenCheckBox.UseVisualStyleBackColor = true;
+            this.FullscreenCheckBox.CheckedChanged += new System.EventHandler(this.FullscreenCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(257, 257);
+            this.ClientSize = new System.Drawing.Size(257, 303);
+            this.Controls.Add(this.FullscreenCheckBox);
+            this.Controls.Add(this.WindowedCheckBox);
             this.Controls.Add(this.BorderlessCheckBox);
             this.Controls.Add(this.VersionLinkLabel);
             this.Controls.Add(this.ResolutionLabel);
@@ -198,6 +222,8 @@
         private System.Windows.Forms.LinkLabel VersionLinkLabel;
         private System.Windows.Forms.ToolTip SplitToolTip;
         private System.Windows.Forms.CheckBox BorderlessCheckBox;
+        private System.Windows.Forms.CheckBox WindowedCheckBox;
+        private System.Windows.Forms.CheckBox FullscreenCheckBox;
     }
 }
 
