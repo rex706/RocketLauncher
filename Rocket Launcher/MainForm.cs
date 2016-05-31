@@ -3,12 +3,17 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Rocket_Launcher
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
+        #region Variables
+
         private bool argFlag = false;
         private bool horizontal = false;
         private bool vertical = false;
@@ -21,14 +26,20 @@ namespace Rocket_Launcher
         private string split;
         private string WindowString;
 
+        private static Version latest;
+
         private Screen[] screens;
 
-        public Form1()
+        #endregion
+
+        #region Constructors
+
+        public MainForm()
         {
             InitializeComponent();
         }
 
-        public Form1(string[] args)
+        public MainForm(string[] args)
         {
             if (args.Length > 0)
             {
@@ -47,40 +58,36 @@ namespace Rocket_Launcher
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        #endregion
+
+        private async void MainForm_Load(object sender, EventArgs e)
         {
-            //check for version updates
-            WebClient client = new WebClient();
+            //verion number from assembly
+            string AssemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            int idx = AssemblyVersion.IndexOf('0') - 1;
+            AssemblyVersion = AssemblyVersion.Substring(0, idx);
+            VersionLinkLabel.Text = "v" + AssemblyVersion;
 
-            try
-            {   //open the text file using a stream reader
-                using (Stream stream = client.OpenRead("http://textuploader.com/5bk2v/raw"))
-                {
-                    StreamReader reader = new StreamReader(stream);
-                    String latest = reader.ReadToEnd();
-
-                    //MessageBox.Show(latest);
-                    if (latest != VersionLinkLabel.Text.Substring(1))
-                    {
-                        DialogResult answer = MessageBox.Show("There is a new update available!\nDownload now?", "Update Found!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        if (answer == DialogResult.Yes)
-                        {
-                            Process.Start("https://github.com/rex706/RocketLauncher");
-                            Close();
-                        }
-                        else if(answer == DialogResult.No)
-                        {
-                            VersionLinkLabel.LinkColor = Color.Red;
-                            VersionLinkLabel.Text = "v" + latest + "\nupdate\navailable!";
-                        }
-                    }
-                }
-            }
-            catch (Exception m)
+            //Check for a new version.
+            int updateResult = await CheckForUpdate();
+            if (updateResult == -1)
             {
-                //MessageBox.Show(m.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //Some Error occurred.
+                //TODO: Handle this Error.
             }
-           
+            else if (updateResult == 1)
+            {
+                //An update is available, but user has chosen not to update.
+                VersionLinkLabel.LinkColor = Color.Red;
+                VersionLinkLabel.Text = "v" + latest + "\nupdate\navailable!";
+            }
+            else if (updateResult == 2)
+            {
+                //An update is available, and the user has chosen to update.
+                //TODO: Exit the application. Later, initiate a process that downloads new updated binaries.
+                Close();
+            }
+
             if (!File.Exists("RocketSettings.ini"))
             {
                 MessageBox.Show("No 'RocketSettings' file found! \nPlease locate RocketLeague.exe", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -109,11 +116,13 @@ namespace Rocket_Launcher
                 RocketSettings.Write("Path", exePath, "Settings");
                 RocketSettings.Write("Split", "", "Settings");
                 RocketSettings.Write("Window", "", "Settings");
+                RocketSettings.Write("ResX", "", "Settings");
+                RocketSettings.Write("ResY", "", "Settings");
             }
             else
             {
                 try
-                {  
+                {
                     //open the text file using a stream reader
                     var RocketSettings = new IniFile("RocketSettings.ini");
 
@@ -125,11 +134,11 @@ namespace Rocket_Launcher
                     {
                         BorderlessCheckBox.Checked = true;
                     }
-                    else if(WindowString == "Fullscreen")
+                    else if (WindowString == "Fullscreen")
                     {
                         FullscreenCheckBox.Checked = true;
                     }
-                    else if(WindowString == "Windowed")
+                    else if (WindowString == "Windowed")
                     {
                         WindowedCheckBox.Checked = true;
                     }
@@ -155,8 +164,23 @@ namespace Rocket_Launcher
 
             screens = Screen.AllScreens;
 
-            XtextBox.Text = screenWidth;
-            YtextBox.Text = screenHeight;
+            var RocketSettings1 = new IniFile("RocketSettings.ini");
+
+            string tempX = RocketSettings1.Read("ResX", "Settings");
+            string tempY = RocketSettings1.Read("ResY", "Settings");
+
+            if (tempX == "" && tempY == "")
+            {
+                XtextBox.Text = screenWidth;
+                YtextBox.Text = screenHeight;
+            }
+            else
+            {
+                XtextBox.Text = tempX;
+                YtextBox.Text = tempY;
+
+                SaveResCheckBox.Checked = true;
+            }
 
             if (split == "Horizontal") HorizontalCheckBox.Checked = true;
             else if (split == "Vertical") VerticalCheckBox.Checked = true;
@@ -174,6 +198,9 @@ namespace Rocket_Launcher
             Activate();
         }
 
+        #region Check Boxes
+
+        //split checkboxes
         private void VerticalCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (VerticalCheckBox.Checked == true)
@@ -232,6 +259,41 @@ namespace Rocket_Launcher
             }
         }
 
+        //window checkboxes
+        private void BorderlessCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (BorderlessCheckBox.Checked == true)
+            {
+                FullscreenCheckBox.Checked = false;
+                WindowedCheckBox.Checked = false;
+            }
+        }
+
+        private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (WindowedCheckBox.Checked == true)
+            {
+                BorderlessCheckBox.Checked = false;
+                FullscreenCheckBox.Checked = false;
+            }
+        }
+
+        private void FullscreenCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (FullscreenCheckBox.Checked == true)
+            {
+                BorderlessCheckBox.Checked = false;
+                WindowedCheckBox.Checked = false;
+            }
+        }
+
+        private void SaveResCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
         private void LaunchButton_Click(object sender, EventArgs e)
         {
             var settingsINI = new IniFile(settingsPath);
@@ -257,6 +319,17 @@ namespace Rocket_Launcher
             if (BorderlessCheckBox.Checked == true) RocketSettings.Write("Window", "Borderless", "Settings");
             else if (FullscreenCheckBox.Checked == true) RocketSettings.Write("Window", "Fullscreen", "Settings");
             else if (WindowedCheckBox.Checked == true) RocketSettings.Write("Window", "Windowed", "Settings");
+
+            if(SaveResCheckBox.Checked == true)
+            {
+                RocketSettings.Write("ResX", XtextBox.Text, "Settings");
+                RocketSettings.Write("ResY", YtextBox.Text, "Settings");
+            }
+            else
+            {
+                RocketSettings.Write("ResX", "", "Settings");
+                RocketSettings.Write("ResY", "", "Settings");
+            }
 
             //get working directory from exePath variable
             int last_slash_idx = exePath.LastIndexOf('\\');
@@ -291,31 +364,47 @@ namespace Rocket_Launcher
             Process.Start("https://github.com/rex706/RocketLauncher");
         }
 
-        //window checkboxes
-        private void BorderlessCheckBox_CheckedChanged(object sender, EventArgs e)
+        //Checks if an update is available. 
+        //-1 for check Error, 0 for no update, 1 for update is available, 2 for perform update.
+        private static async Task<int> CheckForUpdate()
         {
-            if (BorderlessCheckBox.Checked == true)
-            {
-                FullscreenCheckBox.Checked = false;
-                WindowedCheckBox.Checked = false;
-            }
-        }
+            //Nkosi Note: Always use asynchronous versions of network and IO methods.
 
-        private void WindowedCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (WindowedCheckBox.Checked == true)
+            //Check for version updates
+            var client = new HttpClient();
+            client.Timeout = new TimeSpan(0, 0, 0, 10);
+            try
             {
-                BorderlessCheckBox.Checked = false;
-                FullscreenCheckBox.Checked = false;
-            }
-        }
+                //open the text file using a stream reader
+                using (Stream stream = await client.GetStreamAsync("http://textuploader.com/5bk2v/raw"))
+                {
+                    Version current = Assembly.GetExecutingAssembly().GetName().Version;
+                    StreamReader reader = new StreamReader(stream);
+                    latest = Version.Parse(reader.ReadToEnd());
 
-        private void FullscreenCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (FullscreenCheckBox.Checked == true)
+                    if (latest != current)
+                    {
+                        DialogResult answer = MessageBox.Show("A new version of RocketLauncher is available!\n\nCurrent Version     " + current + "\nLatest Version     " + latest + "\n\nUpdate Now?", "RocketLauncher Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        if (answer == DialogResult.Yes)
+                        {
+                            //TODO: Later on, remove this and replace with automated process of downloading new binaries.
+                            Process.Start("https://github.com/rex706/RocketLauncher");
+                            //Update is available, and user wants to update. Requires app to close.
+                            return 2;
+                        }
+
+                        //Update is available, but user chose not to update just yet.
+                        return 1;
+                    }
+                }
+
+                //No update available.
+                return 0;
+            }
+            catch (Exception m)
             {
-                BorderlessCheckBox.Checked = false;
-                WindowedCheckBox.Checked = false;
+                //MessageBox.Show("Failed to check for update.\n" + m.Message,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
             }
         }
     }
