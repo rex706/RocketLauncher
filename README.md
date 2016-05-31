@@ -6,8 +6,8 @@ Easily change Rocket League's resolution to work with dual-monitor split screen.
 [Download](https://drive.google.com/file/d/0BzKq8PEZkdhSOGFGcTZ0SWlmSTA/view?usp=sharing)
 
 Latest version: 1.5
-- support for fullscreen and windowed modes separetely
-- save resolution option if horizontal or vertial do not work correctly or as expected
+- support for fullscreen and windowed modes separately
+- save resolution option if horizontal or vertical do not work correctly or as expected
 - visual improvements
 - code enhancements
 
