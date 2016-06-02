@@ -118,6 +118,8 @@ namespace Rocket_Launcher
                 RocketSettings.Write("Window", "", "Settings");
                 RocketSettings.Write("ResX", "", "Settings");
                 RocketSettings.Write("ResY", "", "Settings");
+                RocketSettings.Write("UnlockFPS", "", "Advanced");
+                RocketSettings.Write("ForceMSAA", "", "Advanced");
             }
             else
             {
@@ -380,7 +382,8 @@ namespace Rocket_Launcher
                 {
                     Version current = Assembly.GetExecutingAssembly().GetName().Version;
                     StreamReader reader = new StreamReader(stream);
-                    latest = Version.Parse(reader.ReadToEnd());
+                    //latest = Version.Parse(reader.ReadToEnd());
+                    latest = Version.Parse("1.6.0.0");
 
                     if (latest != current)
                     {
@@ -405,6 +408,77 @@ namespace Rocket_Launcher
             {
                 //MessageBox.Show("Failed to check for update.\n" + m.Message,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return 0;
+            }
+        }
+
+        private void UnlockFPSCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var RocketSettings = new IniFile("RocketSettings.ini");
+            string UnlockFPS = RocketSettings.Read("UnlockFPS", "Advanced");
+
+            if (UnlockFPSCheckBox.Checked == true)
+            {
+                DialogResult ans = MessageBox.Show("Some users have reported camera bugs with this enabled. \nDisable this if you experience any camera issues.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (ans == DialogResult.OK)
+                {
+                    //edit ini file from exe path
+                    RocketSettings.Write("UnlockFPS", "True", "Advanced");
+
+                    //delete last two directories of exePath and append "Engine\\Config\\BaseSystemSettings.ini"
+                    DirectoryInfo d = new DirectoryInfo(exePath);
+                    string path = d.Parent.Parent.Parent.FullName;
+                    path += "\\Engine\\Config\\BaseSystemSettings.ini";
+
+                    var BaseSettings = new IniFile(path);
+                    BaseSettings.Write("AllowPerFrameSleep", "False", "SystemSettings");
+                }
+            }
+            else if (UnlockFPSCheckBox.Checked == false && UnlockFPS == "")
+            {
+                //do nothing because this setting has not been used yet and therefore we do not need to change anything. this way user settings are preserved
+            }
+            else if (UnlockFPSCheckBox.Checked == false && UnlockFPS == "True")
+            {
+                //chnage back to default and remove flag
+                RocketSettings.Write("UnlockFPS", "", "Advanced");
+
+                //delete last two directories of exePath and append "Engine\\Config\\BaseSystemSettings.ini"
+                DirectoryInfo d = new DirectoryInfo(exePath);
+                string path = d.Parent.Parent.Parent.FullName;
+                path += "\\Engine\\Config\\BaseSystemSettings.ini";
+
+                var BaseSettings = new IniFile(path);
+                BaseSettings.Write("AllowPerFrameSleep", "True", "SystemSettings");
+            }
+        }
+
+        private void ForceMSAACheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            var SettingsIni = new IniFile(settingsPath);
+            var RocketSettings = new IniFile("RocketSettings.ini");
+            string ForceMSAA = RocketSettings.Read("ForceMSAA", "Advanced");
+
+            if (ForceMSAACheckBox.Checked == true)
+            {
+                //change settings in ini
+                RocketSettings.Write("ForceMSAA", "True", "Advanced");
+
+                SettingsIni.Write("MaxAnisotropy", "16", "SystemSettings");
+                SettingsIni.Write("MaxMultiSamples", "8", "SystemSettings");
+                SettingsIni.Write("bAllowD3D9MSAA", "True", "SystemSettings");
+            }
+            else if (ForceMSAACheckBox.Checked == false && ForceMSAA == "")
+            {
+                //do nothing because this setting has not been used yet and therefore we do not need to change anything. this way user settings are preserved
+            }
+            else if (ForceMSAACheckBox.Checked == false && ForceMSAA == "True")
+            {
+                //change back to default and remove flag
+                RocketSettings.Write("ForceMSAA", "", "Advanced");
+
+                SettingsIni.Write("MaxAnisotropy", "4", "SystemSettings");
+                SettingsIni.Write("MaxMultiSamples", "1", "SystemSettings");
+                SettingsIni.Write("bAllowD3D9MSAA", "False", "SystemSettings");
             }
         }
     }

@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.XLabel = new System.Windows.Forms.Label();
+            this.YLabel = new System.Windows.Forms.Label();
             this.XtextBox = new System.Windows.Forms.TextBox();
             this.YtextBox = new System.Windows.Forms.TextBox();
             this.LaunchButton = new System.Windows.Forms.Button();
@@ -46,39 +46,45 @@
             this.FullscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.SaveResCheckBox = new System.Windows.Forms.CheckBox();
             this.HeaderPictureBox = new System.Windows.Forms.PictureBox();
-            this.line = new System.Windows.Forms.PictureBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ForceMSAACheckBox = new System.Windows.Forms.CheckBox();
+            this.UnlockFPSCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.line)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // XLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(122, 176);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(14, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "X";
+            this.XLabel.AutoSize = true;
+            this.XLabel.Location = new System.Drawing.Point(192, 43);
+            this.XLabel.Name = "XLabel";
+            this.XLabel.Size = new System.Drawing.Size(14, 13);
+            this.XLabel.TabIndex = 0;
+            this.XLabel.Text = "X";
             // 
-            // label2
+            // YLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(122, 201);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(14, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Y";
+            this.YLabel.AutoSize = true;
+            this.YLabel.Location = new System.Drawing.Point(192, 68);
+            this.YLabel.Name = "YLabel";
+            this.YLabel.Size = new System.Drawing.Size(14, 13);
+            this.YLabel.TabIndex = 1;
+            this.YLabel.Text = "Y";
             // 
             // XtextBox
             // 
-            this.XtextBox.Location = new System.Drawing.Point(142, 172);
+            this.XtextBox.Location = new System.Drawing.Point(212, 39);
             this.XtextBox.Name = "XtextBox";
             this.XtextBox.Size = new System.Drawing.Size(61, 20);
             this.XtextBox.TabIndex = 2;
             // 
             // YtextBox
             // 
-            this.YtextBox.Location = new System.Drawing.Point(142, 197);
+            this.YtextBox.Location = new System.Drawing.Point(212, 64);
             this.YtextBox.Name = "YtextBox";
             this.YtextBox.Size = new System.Drawing.Size(61, 20);
             this.YtextBox.TabIndex = 3;
@@ -86,7 +92,7 @@
             // LaunchButton
             // 
             this.LaunchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LaunchButton.Location = new System.Drawing.Point(53, 256);
+            this.LaunchButton.Location = new System.Drawing.Point(116, 323);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(204, 44);
             this.LaunchButton.TabIndex = 4;
@@ -97,7 +103,7 @@
             // HorizontalCheckBox
             // 
             this.HorizontalCheckBox.AutoSize = true;
-            this.HorizontalCheckBox.Location = new System.Drawing.Point(21, 197);
+            this.HorizontalCheckBox.Location = new System.Drawing.Point(51, 64);
             this.HorizontalCheckBox.Name = "HorizontalCheckBox";
             this.HorizontalCheckBox.Size = new System.Drawing.Size(73, 17);
             this.HorizontalCheckBox.TabIndex = 5;
@@ -109,7 +115,7 @@
             // VerticalCheckBox
             // 
             this.VerticalCheckBox.AutoSize = true;
-            this.VerticalCheckBox.Location = new System.Drawing.Point(21, 174);
+            this.VerticalCheckBox.Location = new System.Drawing.Point(51, 41);
             this.VerticalCheckBox.Name = "VerticalCheckBox";
             this.VerticalCheckBox.Size = new System.Drawing.Size(61, 17);
             this.VerticalCheckBox.TabIndex = 6;
@@ -122,7 +128,7 @@
             // 
             this.SplitLabel.AutoSize = true;
             this.SplitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SplitLabel.Location = new System.Drawing.Point(39, 146);
+            this.SplitLabel.Location = new System.Drawing.Point(69, 13);
             this.SplitLabel.Name = "SplitLabel";
             this.SplitLabel.Size = new System.Drawing.Size(35, 17);
             this.SplitLabel.TabIndex = 7;
@@ -132,7 +138,7 @@
             // 
             this.ResolutionLabel.AutoSize = true;
             this.ResolutionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResolutionLabel.Location = new System.Drawing.Point(182, 146);
+            this.ResolutionLabel.Location = new System.Drawing.Point(252, 13);
             this.ResolutionLabel.Name = "ResolutionLabel";
             this.ResolutionLabel.Size = new System.Drawing.Size(75, 17);
             this.ResolutionLabel.TabIndex = 8;
@@ -159,7 +165,7 @@
             // BorderlessCheckBox
             // 
             this.BorderlessCheckBox.AutoSize = true;
-            this.BorderlessCheckBox.Location = new System.Drawing.Point(232, 224);
+            this.BorderlessCheckBox.Location = new System.Drawing.Point(302, 91);
             this.BorderlessCheckBox.Name = "BorderlessCheckBox";
             this.BorderlessCheckBox.Size = new System.Drawing.Size(75, 17);
             this.BorderlessCheckBox.TabIndex = 10;
@@ -171,7 +177,7 @@
             // WindowedCheckBox
             // 
             this.WindowedCheckBox.AutoSize = true;
-            this.WindowedCheckBox.Location = new System.Drawing.Point(232, 199);
+            this.WindowedCheckBox.Location = new System.Drawing.Point(302, 66);
             this.WindowedCheckBox.Name = "WindowedCheckBox";
             this.WindowedCheckBox.Size = new System.Drawing.Size(77, 17);
             this.WindowedCheckBox.TabIndex = 11;
@@ -183,7 +189,7 @@
             // FullscreenCheckBox
             // 
             this.FullscreenCheckBox.AutoSize = true;
-            this.FullscreenCheckBox.Location = new System.Drawing.Point(232, 174);
+            this.FullscreenCheckBox.Location = new System.Drawing.Point(302, 41);
             this.FullscreenCheckBox.Name = "FullscreenCheckBox";
             this.FullscreenCheckBox.Size = new System.Drawing.Size(74, 17);
             this.FullscreenCheckBox.TabIndex = 12;
@@ -195,7 +201,7 @@
             // SaveResCheckBox
             // 
             this.SaveResCheckBox.AutoSize = true;
-            this.SaveResCheckBox.Location = new System.Drawing.Point(122, 225);
+            this.SaveResCheckBox.Location = new System.Drawing.Point(192, 92);
             this.SaveResCheckBox.Name = "SaveResCheckBox";
             this.SaveResCheckBox.Size = new System.Drawing.Size(104, 17);
             this.SaveResCheckBox.TabIndex = 13;
@@ -208,44 +214,88 @@
             // HeaderPictureBox
             // 
             this.HeaderPictureBox.BackgroundImage = global::RocketLauncher.Properties.Resources.header;
-            this.HeaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.HeaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.HeaderPictureBox.Location = new System.Drawing.Point(5, 4);
             this.HeaderPictureBox.Name = "HeaderPictureBox";
-            this.HeaderPictureBox.Size = new System.Drawing.Size(305, 134);
+            this.HeaderPictureBox.Size = new System.Drawing.Size(426, 134);
             this.HeaderPictureBox.TabIndex = 14;
             this.HeaderPictureBox.TabStop = false;
             // 
-            // line
+            // tabControl1
             // 
-            this.line.BackgroundImage = global::RocketLauncher.Properties.Resources.line;
-            this.line.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.line.Location = new System.Drawing.Point(101, 173);
-            this.line.Name = "line";
-            this.line.Size = new System.Drawing.Size(10, 67);
-            this.line.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.line.TabIndex = 15;
-            this.line.TabStop = false;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(8, 146);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(423, 159);
+            this.tabControl1.TabIndex = 16;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.SplitLabel);
+            this.tabPage1.Controls.Add(this.HorizontalCheckBox);
+            this.tabPage1.Controls.Add(this.SaveResCheckBox);
+            this.tabPage1.Controls.Add(this.VerticalCheckBox);
+            this.tabPage1.Controls.Add(this.FullscreenCheckBox);
+            this.tabPage1.Controls.Add(this.BorderlessCheckBox);
+            this.tabPage1.Controls.Add(this.WindowedCheckBox);
+            this.tabPage1.Controls.Add(this.XLabel);
+            this.tabPage1.Controls.Add(this.YLabel);
+            this.tabPage1.Controls.Add(this.ResolutionLabel);
+            this.tabPage1.Controls.Add(this.XtextBox);
+            this.tabPage1.Controls.Add(this.YtextBox);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(415, 133);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.ForceMSAACheckBox);
+            this.tabPage2.Controls.Add(this.UnlockFPSCheckBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(415, 133);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Advanced";
+            // 
+            // ForceMSAACheckBox
+            // 
+            this.ForceMSAACheckBox.AutoSize = true;
+            this.ForceMSAACheckBox.Location = new System.Drawing.Point(249, 57);
+            this.ForceMSAACheckBox.Name = "ForceMSAACheckBox";
+            this.ForceMSAACheckBox.Size = new System.Drawing.Size(86, 17);
+            this.ForceMSAACheckBox.TabIndex = 1;
+            this.ForceMSAACheckBox.Text = "Force MSAA";
+            this.SplitToolTip.SetToolTip(this.ForceMSAACheckBox, "Enable better antialiasing. Powerful PC required!");
+            this.ForceMSAACheckBox.UseVisualStyleBackColor = true;
+            this.ForceMSAACheckBox.CheckedChanged += new System.EventHandler(this.ForceMSAACheckBox_CheckedChanged);
+            // 
+            // UnlockFPSCheckBox
+            // 
+            this.UnlockFPSCheckBox.AutoSize = true;
+            this.UnlockFPSCheckBox.Location = new System.Drawing.Point(79, 57);
+            this.UnlockFPSCheckBox.Name = "UnlockFPSCheckBox";
+            this.UnlockFPSCheckBox.Size = new System.Drawing.Size(83, 17);
+            this.UnlockFPSCheckBox.TabIndex = 0;
+            this.UnlockFPSCheckBox.Text = "Unlock FPS";
+            this.SplitToolTip.SetToolTip(this.UnlockFPSCheckBox, "Uncap Rocket League\'s frame rate.");
+            this.UnlockFPSCheckBox.UseVisualStyleBackColor = true;
+            this.UnlockFPSCheckBox.CheckedChanged += new System.EventHandler(this.UnlockFPSCheckBox_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(314, 307);
-            this.Controls.Add(this.line);
+            this.ClientSize = new System.Drawing.Size(443, 379);
             this.Controls.Add(this.VersionLinkLabel);
             this.Controls.Add(this.HeaderPictureBox);
-            this.Controls.Add(this.SaveResCheckBox);
-            this.Controls.Add(this.FullscreenCheckBox);
-            this.Controls.Add(this.WindowedCheckBox);
-            this.Controls.Add(this.BorderlessCheckBox);
-            this.Controls.Add(this.ResolutionLabel);
-            this.Controls.Add(this.SplitLabel);
-            this.Controls.Add(this.VerticalCheckBox);
-            this.Controls.Add(this.HorizontalCheckBox);
             this.Controls.Add(this.LaunchButton);
-            this.Controls.Add(this.YtextBox);
-            this.Controls.Add(this.XtextBox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -254,7 +304,11 @@
             this.Text = "RocketLauncher";
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.HeaderPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.line)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,8 +316,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label XLabel;
+        private System.Windows.Forms.Label YLabel;
         private System.Windows.Forms.TextBox XtextBox;
         private System.Windows.Forms.TextBox YtextBox;
         private System.Windows.Forms.Button LaunchButton;
@@ -278,7 +332,11 @@
         private System.Windows.Forms.CheckBox FullscreenCheckBox;
         private System.Windows.Forms.CheckBox SaveResCheckBox;
         private System.Windows.Forms.PictureBox HeaderPictureBox;
-        private System.Windows.Forms.PictureBox line;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox ForceMSAACheckBox;
+        private System.Windows.Forms.CheckBox UnlockFPSCheckBox;
     }
 }
 
