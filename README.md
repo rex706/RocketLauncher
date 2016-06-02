@@ -8,7 +8,6 @@ Easily change Rocket League's settings to work with dual-monitor split screen an
 Latest version: 1.6
 - visual overhaul
 - advanced options
-
  - Uncap FPS
  - Force MSAA
 
