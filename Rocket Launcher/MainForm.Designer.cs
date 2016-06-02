@@ -45,12 +45,12 @@
             this.WindowedCheckBox = new System.Windows.Forms.CheckBox();
             this.FullscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.SaveResCheckBox = new System.Windows.Forms.CheckBox();
+            this.ForceMSAACheckBox = new System.Windows.Forms.CheckBox();
+            this.UnlockFPSCheckBox = new System.Windows.Forms.CheckBox();
             this.HeaderPictureBox = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ForceMSAACheckBox = new System.Windows.Forms.CheckBox();
-            this.UnlockFPSCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.HeaderPictureBox)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -92,7 +92,7 @@
             // LaunchButton
             // 
             this.LaunchButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LaunchButton.Location = new System.Drawing.Point(116, 323);
+            this.LaunchButton.Location = new System.Drawing.Point(112, 320);
             this.LaunchButton.Name = "LaunchButton";
             this.LaunchButton.Size = new System.Drawing.Size(204, 44);
             this.LaunchButton.TabIndex = 4;
@@ -211,59 +211,6 @@
             this.SaveResCheckBox.UseVisualStyleBackColor = true;
             this.SaveResCheckBox.CheckedChanged += new System.EventHandler(this.SaveResCheckBox_CheckedChanged);
             // 
-            // HeaderPictureBox
-            // 
-            this.HeaderPictureBox.BackgroundImage = global::RocketLauncher.Properties.Resources.header;
-            this.HeaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.HeaderPictureBox.Location = new System.Drawing.Point(5, 4);
-            this.HeaderPictureBox.Name = "HeaderPictureBox";
-            this.HeaderPictureBox.Size = new System.Drawing.Size(426, 134);
-            this.HeaderPictureBox.TabIndex = 14;
-            this.HeaderPictureBox.TabStop = false;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(8, 146);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(423, 159);
-            this.tabControl1.TabIndex = 16;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
-            this.tabPage1.Controls.Add(this.SplitLabel);
-            this.tabPage1.Controls.Add(this.HorizontalCheckBox);
-            this.tabPage1.Controls.Add(this.SaveResCheckBox);
-            this.tabPage1.Controls.Add(this.VerticalCheckBox);
-            this.tabPage1.Controls.Add(this.FullscreenCheckBox);
-            this.tabPage1.Controls.Add(this.BorderlessCheckBox);
-            this.tabPage1.Controls.Add(this.WindowedCheckBox);
-            this.tabPage1.Controls.Add(this.XLabel);
-            this.tabPage1.Controls.Add(this.YLabel);
-            this.tabPage1.Controls.Add(this.ResolutionLabel);
-            this.tabPage1.Controls.Add(this.XtextBox);
-            this.tabPage1.Controls.Add(this.YtextBox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(415, 133);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Settings";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.ForceMSAACheckBox);
-            this.tabPage2.Controls.Add(this.UnlockFPSCheckBox);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(415, 133);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced";
-            // 
             // ForceMSAACheckBox
             // 
             this.ForceMSAACheckBox.AutoSize = true;
@@ -288,10 +235,63 @@
             this.UnlockFPSCheckBox.UseVisualStyleBackColor = true;
             this.UnlockFPSCheckBox.CheckedChanged += new System.EventHandler(this.UnlockFPSCheckBox_CheckedChanged);
             // 
+            // HeaderPictureBox
+            // 
+            this.HeaderPictureBox.BackgroundImage = global::RocketLauncher.Properties.Resources.rocketlauncherheader;
+            this.HeaderPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.HeaderPictureBox.Location = new System.Drawing.Point(5, 4);
+            this.HeaderPictureBox.Name = "HeaderPictureBox";
+            this.HeaderPictureBox.Size = new System.Drawing.Size(426, 134);
+            this.HeaderPictureBox.TabIndex = 14;
+            this.HeaderPictureBox.TabStop = false;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(5, 146);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(426, 159);
+            this.tabControl1.TabIndex = 16;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Transparent;
+            this.tabPage1.Controls.Add(this.SplitLabel);
+            this.tabPage1.Controls.Add(this.HorizontalCheckBox);
+            this.tabPage1.Controls.Add(this.SaveResCheckBox);
+            this.tabPage1.Controls.Add(this.VerticalCheckBox);
+            this.tabPage1.Controls.Add(this.FullscreenCheckBox);
+            this.tabPage1.Controls.Add(this.BorderlessCheckBox);
+            this.tabPage1.Controls.Add(this.WindowedCheckBox);
+            this.tabPage1.Controls.Add(this.XLabel);
+            this.tabPage1.Controls.Add(this.YLabel);
+            this.tabPage1.Controls.Add(this.ResolutionLabel);
+            this.tabPage1.Controls.Add(this.XtextBox);
+            this.tabPage1.Controls.Add(this.YtextBox);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(418, 133);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Settings";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.ForceMSAACheckBox);
+            this.tabPage2.Controls.Add(this.UnlockFPSCheckBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(415, 133);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Advanced";
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(443, 379);
+            this.ClientSize = new System.Drawing.Size(436, 379);
             this.Controls.Add(this.VersionLinkLabel);
             this.Controls.Add(this.HeaderPictureBox);
             this.Controls.Add(this.LaunchButton);

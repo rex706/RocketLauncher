@@ -25,6 +25,8 @@ namespace Rocket_Launcher
         private string exePath;
         private string split;
         private string WindowString;
+        private string UnlockFPS;
+        private string ForceMSAA;
 
         private static Version latest;
 
@@ -132,6 +134,9 @@ namespace Rocket_Launcher
                     split = RocketSettings.Read("Split", "Settings");
                     WindowString = RocketSettings.Read("Window", "Settings");
 
+                    UnlockFPS = RocketSettings.Read("UnlockFPS", "Advanced");
+                    ForceMSAA = RocketSettings.Read("ForceMSAA", "Advanced");
+
                     if (WindowString == "Borderless")
                     {
                         BorderlessCheckBox.Checked = true;
@@ -143,6 +148,16 @@ namespace Rocket_Launcher
                     else if (WindowString == "Windowed")
                     {
                         WindowedCheckBox.Checked = true;
+                    }
+
+                    if (UnlockFPS == "True")
+                    {
+                        UnlockFPSCheckBox.Checked = true;
+                    }
+
+                    if (ForceMSAA == "True")
+                    {
+                        ForceMSAACheckBox.Checked = true;
                     }
                 }
                 catch (Exception m)
@@ -382,12 +397,11 @@ namespace Rocket_Launcher
                 {
                     Version current = Assembly.GetExecutingAssembly().GetName().Version;
                     StreamReader reader = new StreamReader(stream);
-                    //latest = Version.Parse(reader.ReadToEnd());
-                    latest = Version.Parse("1.6.0.0");
+                    latest = Version.Parse(reader.ReadToEnd());
 
                     if (latest != current)
                     {
-                        DialogResult answer = MessageBox.Show("A new version of RocketLauncher is available!\n\nCurrent Version     " + current + "\nLatest Version     " + latest + "\n\nUpdate Now?", "RocketLauncher Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                        DialogResult answer = MessageBox.Show("A new version of RocketLauncher is available!\n\nCurrent Version     " + current + "\nLatest Version     " + latest + "\n\nUpdate now?", "RocketLauncher Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                         if (answer == DialogResult.Yes)
                         {
                             //TODO: Later on, remove this and replace with automated process of downloading new binaries.
@@ -414,11 +428,11 @@ namespace Rocket_Launcher
         private void UnlockFPSCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             var RocketSettings = new IniFile("RocketSettings.ini");
-            string UnlockFPS = RocketSettings.Read("UnlockFPS", "Advanced");
+            UnlockFPS = RocketSettings.Read("UnlockFPS", "Advanced");
 
-            if (UnlockFPSCheckBox.Checked == true)
+            if (UnlockFPSCheckBox.Checked == true && UnlockFPS != "True")
             {
-                DialogResult ans = MessageBox.Show("Some users have reported camera bugs with this enabled. \nDisable this if you experience any camera issues.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                DialogResult ans = MessageBox.Show("Some users have reported camera bugs with this enabled. \n\nYou may need to turn on vsync in your video control panel (AMD or NVIDIA) to achieve desired framerate. \n\nDisable this option if you experience any camera issues.", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (ans == DialogResult.OK)
                 {
                     //edit ini file from exe path
@@ -432,6 +446,16 @@ namespace Rocket_Launcher
                     var BaseSettings = new IniFile(path);
                     BaseSettings.Write("AllowPerFrameSleep", "False", "SystemSettings");
                 }
+            }
+            else if (UnlockFPSCheckBox.Checked == true && UnlockFPS == "True")
+            {
+                //delete last two directories of exePath and append "Engine\\Config\\BaseSystemSettings.ini"
+                DirectoryInfo d = new DirectoryInfo(exePath);
+                string path = d.Parent.Parent.Parent.FullName;
+                path += "\\Engine\\Config\\BaseSystemSettings.ini";
+
+                var BaseSettings = new IniFile(path);
+                BaseSettings.Write("AllowPerFrameSleep", "False", "SystemSettings");
             }
             else if (UnlockFPSCheckBox.Checked == false && UnlockFPS == "")
             {
@@ -456,7 +480,7 @@ namespace Rocket_Launcher
         {
             var SettingsIni = new IniFile(settingsPath);
             var RocketSettings = new IniFile("RocketSettings.ini");
-            string ForceMSAA = RocketSettings.Read("ForceMSAA", "Advanced");
+            ForceMSAA = RocketSettings.Read("ForceMSAA", "Advanced");
 
             if (ForceMSAACheckBox.Checked == true)
             {
