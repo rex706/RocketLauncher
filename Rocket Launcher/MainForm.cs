@@ -79,7 +79,7 @@ namespace Rocket_Launcher
             {
                 //An update is available, but user has chosen not to update.
                 VersionLinkLabel.LinkColor = Color.Red;
-                VersionLinkLabel.Text = "v" + latest + "\nupdate\navailable!";
+                VersionLinkLabel.Text = "v" + latest + " update available!";
             }
             else if (updateResult == 2)
             {
