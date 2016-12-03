@@ -3,7 +3,7 @@ Easily change Rocket League's settings to work with dual-monitor split screen an
 
 ![alt tag](http://i.imgur.com/L0o7q7f.png)  ![alt tag](http://i.imgur.com/Rs4SW0g.png)
 
-[Download](https://drive.google.com/file/d/0BzKq8PEZkdhSOGFGcTZ0SWlmSTA/view?usp=sharing)
+[Download](https://github.com/rex706/RocketLauncher/releases/download/1.6/RocketLauncher.rar)
 
 Latest version: 1.6
 - visual overhaul
