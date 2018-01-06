@@ -4,10 +4,24 @@ Easily change Rocket League's settings to work with dual-monitor split screen an
 ![alt tag](http://i.imgur.com/L0o7q7f.png)  ![alt tag](http://i.imgur.com/Rs4SW0g.png)
 
 Vertical Split:
+
 <img src="https://i.imgur.com/6VG5IT0.jpg" width="686" height="300">
 
 Horizontal Split:
+
 <img src="https://i.imgur.com/Pjz2Xkm.jpg" width="300" height="400">
+
+[Download](https://github.com/rex706/RocketLauncher/releases)
+
+**CHANGELOG**
+
+**Latest version:** 1.6
+- visual overhaul
+- advanced options
+- Uncap FPS
+- Force MSAA
+
+1.5
 - support for fullscreen and windowed modes separately
 - save resolution option if horizontal or vertical do not work correctly or as expected
 - visual improvements
